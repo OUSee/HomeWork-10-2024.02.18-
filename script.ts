@@ -2,6 +2,8 @@ const targetTable = document.querySelector("#Ulist") as Element;
 const serverUrl = "https://jsonplaceholder.typicode.com/users" as string;
 const sortButton = document.querySelectorAll(`.sort-button`) as NodeListOf<Element>;
 
+let checkIfalreadyPrinted: boolean = false;
+
 enum SortOptions{
     byName = 0,
     byPhone = 1, 
@@ -47,7 +49,6 @@ function RunServerApp() {
             (user: User) =>
                 user = new User(user.id, user.name, user.username, user.email, user.phone)
         );
-        fillTable(users);
         return users;
     }
 
@@ -106,18 +107,23 @@ function RunServerApp() {
                 switch (element.id) {
                     case "sbName": { 
                         GetSorted(SortOptions.byName, users);
+                        break;
                     }
                     case "sbUName": { 
                         GetSorted(SortOptions.byNick, users);
+                        break;
                     }
                     case "sbPhone": { 
                         GetSorted(SortOptions.byPhone, users);
+                        break;
                     }
                     case "sbMail": { 
                         GetSorted(SortOptions.byEmail, users);
+                        break;
                     }
                     default: {
                         console.log("Unknown sort option");
+                        break;
                     }
             }
         }

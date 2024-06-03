@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const targetTable = document.querySelector("#Ulist");
 const serverUrl = "https://jsonplaceholder.typicode.com/users";
 const sortButton = document.querySelectorAll(`.sort-button`);
+let checkIfalreadyPrinted = false;
 var SortOptions;
 (function (SortOptions) {
     SortOptions[SortOptions["byName"] = 0] = "byName";
@@ -37,7 +38,6 @@ function RunServerApp() {
     });
     function readJson(json) {
         users = json.map((user) => user = new User(user.id, user.name, user.username, user.email, user.phone));
-        fillTable(users);
         return users;
     }
     function fillTable(input) {
@@ -93,18 +93,23 @@ function RunServerApp() {
                 switch (element.id) {
                     case "sbName": {
                         GetSorted(SortOptions.byName, users);
+                        break;
                     }
                     case "sbUName": {
                         GetSorted(SortOptions.byNick, users);
+                        break;
                     }
                     case "sbPhone": {
                         GetSorted(SortOptions.byPhone, users);
+                        break;
                     }
                     case "sbMail": {
                         GetSorted(SortOptions.byEmail, users);
+                        break;
                     }
                     default: {
                         console.log("Unknown sort option");
+                        break;
                     }
                 }
             }
