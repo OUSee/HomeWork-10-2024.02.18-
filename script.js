@@ -1,48 +1,22 @@
 "use strict";
-var __awaiter =
-    (this && this.__awaiter) ||
-    function (thisArg, _arguments, P, generator) {
-        function adopt(value) {
-            return value instanceof P
-                ? value
-                : new P(function (resolve) {
-                      resolve(value);
-                  });
-        }
-        return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) {
-                try {
-                    step(generator.next(value));
-                } catch (e) {
-                    reject(e);
-                }
-            }
-            function rejected(value) {
-                try {
-                    step(generator["throw"](value));
-                } catch (e) {
-                    reject(e);
-                }
-            }
-            function step(result) {
-                result.done
-                    ? resolve(result.value)
-                    : adopt(result.value).then(fulfilled, rejected);
-            }
-            step(
-                (generator = generator.apply(thisArg, _arguments || [])).next()
-            );
-        });
-    };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const targetTable = document.querySelector("#Ulist");
 const serverUrl = "https://jsonplaceholder.typicode.com/users";
 const sortButton = document.querySelectorAll(`.sort-button`);
 var SortOptions;
 (function (SortOptions) {
-    SortOptions[(SortOptions["byName"] = 0)] = "byName";
-    SortOptions[(SortOptions["byPhone"] = 1)] = "byPhone";
-    SortOptions[(SortOptions["byNick"] = 2)] = "byNick";
-    SortOptions[(SortOptions["byEmail"] = 3)] = "byEmail";
+    SortOptions[SortOptions["byName"] = 0] = "byName";
+    SortOptions[SortOptions["byPhone"] = 1] = "byPhone";
+    SortOptions[SortOptions["byNick"] = 2] = "byNick";
+    SortOptions[SortOptions["byEmail"] = 3] = "byEmail";
 })(SortOptions || (SortOptions = {}));
 let users;
 class User {
@@ -58,25 +32,15 @@ function RunServerApp() {
     fetch("https://jsonplaceholder.typicode.com/users")
         .then((response) => response.json())
         .then((json) => {
-            console.log("json: ");
-            console.log(json);
-            fillTable(readJson(json));
-        });
+        console.log(json);
+        fillTable(readJson(json));
+    });
+    // dont work somehow
     function readJson(json) {
         const pureObj = JSON.parse(json.toString());
-        console.log("PureObj: ");
-        console.log(pureObj);
-        users = pureObj.map(
-            (user) =>
-                (user = new User(
-                    user.id,
-                    user.name,
-                    user.nickName,
-                    user.email,
-                    user.phone
-                ))
-        );
+        users = pureObj.map((user) => user = new User(user.id, user.name, user.nickName, user.email, user.phone));
         fillTable(users);
+        console.log("need some changes here");
         return users;
     }
     function fillTable(input) {
@@ -103,25 +67,19 @@ function RunServerApp() {
                 break;
             }
             case SortOptions.byNick: {
-                let sorted = input.sort((a, b) =>
-                    a.nickName.localeCompare(b.nickName)
-                );
+                let sorted = input.sort((a, b) => a.nickName.localeCompare(b.nickName));
                 cleanTable();
                 fillTable(sorted);
                 break;
             }
             case SortOptions.byPhone: {
-                let sorted = input.sort((a, b) =>
-                    a.phone.localeCompare(b.phone)
-                );
+                let sorted = input.sort((a, b) => a.phone.localeCompare(b.phone));
                 cleanTable();
                 fillTable(sorted);
                 break;
             }
             case SortOptions.byEmail: {
-                let sorted = input.sort((a, b) =>
-                    a.email.localeCompare(b.email)
-                );
+                let sorted = input.sort((a, b) => a.email.localeCompare(b.email));
                 cleanTable();
                 fillTable(sorted);
                 break;
@@ -156,18 +114,11 @@ function RunServerApp() {
         }
     });
 }
-() =>
-    __awaiter(void 0, void 0, void 0, function* () {
-        console.log(users);
-        console.log("response aquired");
-    });
 function domReady() {
-    if (
-        document.readyState === "complete" ||
-        document.readyState === "interactive"
-    ) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
         RunServerApp();
-    } else {
+    }
+    else {
         document.addEventListener("DOMContentLoaded", (event) => {
             RunServerApp();
         });

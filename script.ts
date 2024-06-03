@@ -39,6 +39,8 @@ function RunServerApp() {
             console.log(json);
             fillTable(readJson(json))
         });
+    
+    // dont work somehow
 
     function readJson(json: JSON) {
         const pureObj: Array<User> = JSON.parse(json.toString());
@@ -47,7 +49,7 @@ function RunServerApp() {
                 user = new User(user.id, user.name, user.nickName, user.email, user.phone)
         );
         fillTable(users);
-
+        console.log("need some changes here")
         return users;
     }
 
