@@ -42,7 +42,6 @@ function RunServerApp() {
 
     function readJson(json: JSON) {
         const pureObj: Array<User> = JSON.parse(json.toString());
-        console.log(pureObj);
         users = pureObj.map(
             (user: User) =>
                 user = new User(user.id, user.name, user.nickName, user.email, user.phone)
@@ -126,7 +125,6 @@ function RunServerApp() {
     });
 }
 
-async () => { console.log(users); console.log("response aquired") }
 
 function domReady():void {
   if (document.readyState === "complete" || document.readyState === "interactive") {
