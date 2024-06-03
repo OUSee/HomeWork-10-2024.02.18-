@@ -48,7 +48,6 @@ function RunServerApp() {
                 user = new User(user.id, user.name, user.username, user.email, user.phone)
         );
         fillTable(users);
-        console.log("need some changes here")
         return users;
     }
 
