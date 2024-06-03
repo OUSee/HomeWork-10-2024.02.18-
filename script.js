@@ -20,10 +20,10 @@ var SortOptions;
 })(SortOptions || (SortOptions = {}));
 let users;
 class User {
-    constructor(id, name, nickname, email, phone) {
+    constructor(id, name, username, email, phone) {
         this.id = id;
         this.name = name;
-        this.nickName = nickname;
+        this.username = username;
         this.email = email;
         this.phone = phone;
     }
@@ -35,10 +35,8 @@ function RunServerApp() {
         console.log(json);
         fillTable(readJson(json));
     });
-    // dont work somehow
     function readJson(json) {
-        const pureObj = JSON.parse(json.toString());
-        users = pureObj.map((user) => user = new User(user.id, user.name, user.nickName, user.email, user.phone));
+        users = json.map((user) => user = new User(user.id, user.name, user.username, user.email, user.phone));
         fillTable(users);
         console.log("need some changes here");
         return users;
@@ -54,7 +52,7 @@ function RunServerApp() {
     function createHTMLInstance(user) {
         let listItem = document.createElement("li");
         listItem.classList.add("user-info-list");
-        listItem.innerHTML = `<div class="list-item list-name">${user.name}</div><div class="list-item list-username">${user.nickName}</div><div class="list-item list-mail">${user.email}</div><div class="list-item list-phone">${user.phone}</div>`;
+        listItem.innerHTML = `<div class="list-item list-name">${user.name}</div><div class="list-item list-username">${user.username}</div><div class="list-item list-mail">${user.email}</div><div class="list-item list-phone">${user.phone}</div>`;
         listItem.setAttribute("id", `${user.id}`);
         targetTable.append(listItem);
     }
@@ -67,7 +65,7 @@ function RunServerApp() {
                 break;
             }
             case SortOptions.byNick: {
-                let sorted = input.sort((a, b) => a.nickName.localeCompare(b.nickName));
+                let sorted = input.sort((a, b) => a.username.localeCompare(b.username));
                 cleanTable();
                 fillTable(sorted);
                 break;
